@@ -1,0 +1,34 @@
+import { GetStaticProps } from "next/types"
+import { getCompanyByUrl } from "../io/getCompanyData"
+
+export interface CompanyDataProps {
+  id: string
+  name: string
+  email: string
+  logo: string
+  phone: string
+  primaryColor: string
+  secondaryColor: string
+}
+
+export const buildStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
+}
+
+export const buildStaticProps: GetStaticProps = async (ctx) => {
+  const [companyData, hasError] = await getCompanyByUrl(ctx.params?.host as string)
+
+  if (hasError) {
+    return { notFound: true }
+  }
+
+  return {
+    props: {
+      companyData,
+    },
+    revalidate: 60 * 60,
+  }
+}

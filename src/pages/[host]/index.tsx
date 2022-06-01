@@ -1,45 +1,24 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useEffect } from 'react'
 import { Button } from '../../components/Button'
-import { useCompany } from '../../hooks/Company'
-import { getCompanyByUrl } from '../../io/getCompanyData'
 import { AppLayout } from '../../layout/AppLayout'
 import { HomeButtonsBar } from '../../pageStyles/home'
+import { buildStaticPaths, buildStaticProps, CompanyDataProps } from '../../services/fetchPageProps'
+import { useWhitelabel } from '../../utilityHooks/useWhitelabel'
 
 interface HomeProps {
-  companyData: {
-    id: string
-    name: string
-    email: string
-    logo: string
-    phone: string
-    primaryColor: string
-    secondaryColor: string
-  }
+  companyData: CompanyDataProps
 }
 
 const Home: NextPage<HomeProps> = ({ companyData }) => {
-  const { data, setCompanyData } = useCompany()
-
-  useEffect(() => {
-    setCompanyData(companyData)
-  }, [companyData, setCompanyData])
-
-  if (!data.id) {
-    return (
-      <AppLayout>
-        Carregando...
-      </AppLayout>
-    )
-  }
+  const { company } = useWhitelabel(companyData)
 
   return (
     <AppLayout>
       <div>
         <img 
-          src={data.logo} 
-          alt={`Logo ${data.name}`}
+          src={company.logo} 
+          alt={`Logo ${company.name}`}
         />
       </div>
 
@@ -67,23 +46,5 @@ const Home: NextPage<HomeProps> = ({ companyData }) => {
 
 export default Home
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking'
-  }
-}
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const [companyData, hasError] = await getCompanyByUrl(ctx.params?.host as string)
-
-  if (hasError) {
-    return { notFound: true }
-  }
-
-  return {
-    props: {
-      companyData
-    },
-  }
-}
+export const getStaticPaths = buildStaticPaths
+export const getStaticProps = buildStaticProps

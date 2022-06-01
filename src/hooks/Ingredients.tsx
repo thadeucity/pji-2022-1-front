@@ -6,7 +6,7 @@ export interface IngredientData {
   id: string
   name: string
   description: string
-  type: string
+  category: string
   prices: {
     small: number
     medium: number
@@ -37,17 +37,21 @@ const IngredientsProvider: React.FC<{children: React.ReactNode}> = ({children}) 
   const [availableIngredients, setAvailableIngredients] = useState<IngredientData[]>([])
 
   const setIngredients = useCallback((data: IngredientData[]) => {
-    setAvailableFillings(data.filter(item => item.type === 'filling'))
-    setAvailableFrostings(data.filter(item => item.type === 'frosting'))
-    setAvailableExtras(data.filter(item => item.type === 'extra'))
-    setAvailableBases(data.filter(item => item.type === 'base'))
+    console.log({data})
+    setAvailableFillings(data.filter(item => item.category === 'filling'))
+    setAvailableFrostings(data.filter(item => item.category === 'frosting'))
+    setAvailableExtras(data.filter(item => item.category === 'extra'))
+    setAvailableBases(data.filter(item => item.category === 'base'))
     setAvailableIngredients(data)
   }, [])
+
+  console.log({companyData})
 
   useEffect(() => {
     if (companyData && companyData.id && !alreadyFetched) {
       getCompanyIngredients(companyData.id)
         .then(([res, hasError])=> {
+          console.log({res})
           if (hasError) {
             console.error(res)
           } else {

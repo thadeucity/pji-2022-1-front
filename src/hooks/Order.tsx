@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from 'react'
 
-interface OrderData { 
-  size: string
+export interface OrderData { 
+  size: 'S' | 'M' | 'L'
   base: string
   fillings: string[]
   frosting: string[]
@@ -10,7 +10,7 @@ interface OrderData {
 
 interface OrderContextData {
   order: OrderData
-  setSize: (size: string) => void
+  setSize: (size: 'S' | 'M' | 'L') => void
   setBase: (base: string) => void
   setFillings: (fillings: string[]) => void
   setFrosting: (frosting: string[]) => void
@@ -22,7 +22,7 @@ const OrderContext = createContext<OrderContextData>({} as OrderContextData)
 const OrderProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const [order, setOrder] = useState({} as OrderData)
 
-  const setSize = (size: string) => {
+  const setSize = (size: 'S' | 'M' | 'L') => {
     setOrder({...order, size})
   }
 
