@@ -2,16 +2,18 @@ import React, { useState, createContext, useContext, useCallback, useEffect } fr
 import { getCompanyIngredients } from '../io/getCompanyData'
 import { useCompany } from './Company'
 
+export interface IngradientPrices extends Record<string, number> {
+  small: number
+  medium: number
+  large: number
+}
+
 export interface IngredientData {
   id: string
   name: string
   description: string
   category: string
-  prices: {
-    small: number
-    medium: number
-    large: number
-  }
+  prices: IngradientPrices
 }
 
 interface IngredientsContextData {
@@ -37,15 +39,12 @@ const IngredientsProvider: React.FC<{children: React.ReactNode}> = ({children}) 
   const [availableIngredients, setAvailableIngredients] = useState<IngredientData[]>([])
 
   const setIngredients = useCallback((data: IngredientData[]) => {
-    console.log({data})
     setAvailableFillings(data.filter(item => item.category === 'filling'))
     setAvailableFrostings(data.filter(item => item.category === 'frosting'))
     setAvailableExtras(data.filter(item => item.category === 'extra'))
     setAvailableBases(data.filter(item => item.category === 'base'))
     setAvailableIngredients(data)
   }, [])
-
-  console.log({companyData})
 
   useEffect(() => {
     if (companyData && companyData.id && !alreadyFetched) {

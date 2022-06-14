@@ -27,7 +27,7 @@ export const useFilteredIngredients = (
         label: ingredient.name,
         price: price,
         isSelected: order[category] === ingredient.id 
-          || order[category].includes(ingredient.name)
+          || order[category]?.includes(ingredient.id)
       }
     })
     .filter(ingredient => !!ingredient.price)
