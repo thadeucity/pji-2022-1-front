@@ -45,6 +45,7 @@ const FrostingPage: NextPage<FrostingPageProps> = ({companyData}) => {
         label: 'Escolha os Adicionais',
         href: '/steps/extras'
       }}
+      showPriceBar
     >
       {frostingsToRender.map(frosting => (
         <IngredientButton 
@@ -56,7 +57,6 @@ const FrostingPage: NextPage<FrostingPageProps> = ({companyData}) => {
           <span>{formatPrice(frosting.price)}</span>
         </IngredientButton>
       ))}
-      <PriceBar />
     </RequestLayout>
   )
 }

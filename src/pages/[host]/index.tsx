@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import { Button } from '../../components/Button'
 import { AppLayout } from '../../layout/AppLayout'
+import { HomePageComponent } from '../../pageComponents/Home/HomePage'
 import { HomeButtonsBar } from '../../pageStyles/home'
 import { buildStaticPaths, buildStaticProps, CompanyDataProps } from '../../services/fetchPageProps'
 import { useWhitelabel } from '../../utilityHooks/useWhitelabel'
@@ -14,33 +15,7 @@ const Home: NextPage<HomeProps> = ({ companyData }) => {
   const { company } = useWhitelabel(companyData)
 
   return (
-    <AppLayout>
-      <div>
-        <img 
-          src={company.logo} 
-          alt={`Logo ${company.name}`}
-        />
-      </div>
-
-      <HomeButtonsBar>
-        <Link href="/steps/size">
-          <a>
-            <Button>
-              Pedir Bolo
-            </Button>
-          </a>
-        </Link>
-
-        <Link href="/about">
-          <a>
-            <Button>
-              Sobre
-            </Button>
-          </a>
-        </Link>
-      </HomeButtonsBar>
-
-    </AppLayout>
+    <HomePageComponent company={company} />
   )
 }
 

@@ -11,7 +11,6 @@ export const AppLayout = ({ children }: AppLayoutProps): React.ReactElement => {
 
   return (
     <Container>
-      <div aria-hidden className='color__band'/>
       <div className='app__content'>
         {data?.id ? children : 'Carregando...'}
       </div>

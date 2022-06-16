@@ -1,4 +1,5 @@
 import { Global, css } from "@emotion/react";
+import { lighten } from "polished";
 import { useCompany } from "../hooks/Company";
 
 

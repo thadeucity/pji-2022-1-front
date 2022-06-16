@@ -19,11 +19,26 @@ interface OrderContextData {
   setExtras: (extras: string[]) => void
 
   parsedOrder: {
-    size: string
-    base: string
-    filling: string
-    frosting: string
-    extras: string[]
+    size: {
+      label: string
+      price: number
+    }
+    base: {
+      label: string
+      price: number
+    }
+    filling: {
+      label: string
+      price: number
+    }
+    frosting: {
+      label: string
+      price: number
+    }
+    extras: {
+      label: string
+      price: number
+    }[]
   }
 }
 
@@ -94,24 +109,59 @@ const OrderProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
       L: 'Grande'
     } as Record<string, string>
 
-    return  PARSED_SIZES[order.size?.toUpperCase() || ''] || 'error'
+    return  {
+      label: PARSED_SIZES[order.size?.toUpperCase() || ''] || 'error',
+      price: 0
+    }
   },[order.size])
 
+  const priceKey = useMemo(() => {
+    const PARSED_SIZES = {
+      S: 'small',
+      M: 'medium',
+      L: 'large'
+    } as Record<string, string>
+
+    return PARSED_SIZES[order.size?.toUpperCase() || ''] || 'error'
+  }, [order.size])
+
   const parsedBase = useMemo(() => {
-    return availableIngredients.find(item => item.id === order.base)?.name || 'error'
-  }, [availableIngredients, order.base])
+    if (!order.base) return {label: 'Nenhum', price: 0}
+
+    const item = availableIngredients.find(item => item.id === order.base)
+
+    return {
+      label: item?.name || 'error',
+      price: item?.prices[priceKey] || 0
+    }
+  }, [availableIngredients, order.base, priceKey])
 
   const parsedFilling = useMemo(() => {
-    return availableIngredients.find(item => item.id === order.filling)?.name || 'error'
-  }, [availableIngredients, order.filling])
+    if (!order.filling) return {label: 'Nenhum', price: 0}
+    return {
+      label: availableIngredients.find(item => item.id === order.filling)?.name || 'error',
+      price: availableIngredients.find(item => item.id === order.filling)?.prices[priceKey] || 0
+    }
+  }, [availableIngredients, order.filling, priceKey])
 
   const parsedFrosting = useMemo(() => {
-    return availableIngredients.find(item => item.id === order.frosting)?.name || 'error'
-  }, [availableIngredients, order.frosting])
+    if (!order.frosting) return {label: 'Nenhum', price: 0}
+    return {
+      label: availableIngredients.find(item => item.id === order.frosting)?.name || 'error',
+      price: availableIngredients.find(item => item.id === order.frosting)?.prices[priceKey] || 0
+    }
+  }, [availableIngredients, order.frosting, priceKey])
 
   const parsedExtras = useMemo(() => {
-    return availableIngredients.filter(item => order.extras.includes(item.id)).map(item => item.name)
-  }, [availableIngredients, order.extras])
+    if (!order.extras) return [{label: 'Nenhum', price: 0}]
+
+    return availableIngredients
+      .filter(item => order.extras.includes(item.id))
+      .map(item => ({
+        label: item.name,
+        price: item.prices[priceKey] || 0
+      }))
+  }, [availableIngredients, order.extras, priceKey])
 
   return (
     <OrderContext.Provider value={{

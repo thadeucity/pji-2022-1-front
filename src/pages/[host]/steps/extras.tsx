@@ -45,6 +45,7 @@ const ExtrasPage: NextPage<FrostingPageProps> = ({companyData}) => {
         label: 'Checkout',
         href: '/checkout'
       }}
+      showPriceBar
     >
       {extrasToRender.map(extra => (
         <IngredientButton 
@@ -56,7 +57,6 @@ const ExtrasPage: NextPage<FrostingPageProps> = ({companyData}) => {
           <span>{formatPrice(extra.price)}</span>
         </IngredientButton>
       ))}
-      <PriceBar />
     </RequestLayout>
   )
 }

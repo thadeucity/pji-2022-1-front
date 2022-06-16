@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 
 export const IngredientButtonContainer = styled.button`
-  background-color: #DDD;
+  background-color: transparent;
   color: #fff;
   width: 100%;
-  border-radius: 0.25rem;
+  border-radius: 0.8rem;
+  border: 2px solid rgba(255, 255, 255, 0.125);
   padding: 0.5em 1em;
   font-size: 1.5rem;
 
@@ -16,6 +17,7 @@ export const IngredientButtonContainer = styled.button`
 
   &.selected {
     background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
     color: #FFF;
   }
 `

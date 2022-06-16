@@ -10,7 +10,7 @@ export const ButtonContainer = styled.button`
 
   font-size: 1rem;
   font-weight: 700;
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   color: #ffffff;
 
   transition: all 0.2s ease-in-out;
@@ -18,9 +18,9 @@ export const ButtonContainer = styled.button`
   cursor: pointer;
 
   &.button__outline {
-    border: 1px solid var(--color-primary);
+    border: 1px solid var(--color-secondary);
     background-color: transparent;
-    color: var(--color-primary);
+    color: var(--color-secondary);
 
     &::after {
       content: '';
@@ -31,7 +31,7 @@ export const ButtonContainer = styled.button`
       left: 0;
       border-radius: 0.5em;
       transition: opacity 250ms;
-      box-shadow: 0 0 10px 1px var(--color-primary);
+      box-shadow: 0 0 10px 1px var(--color-secondary);
       opacity: 0;
     }
   }

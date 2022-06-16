@@ -6,16 +6,18 @@ export const ButtonsBarContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  margin-top: 3rem;
-
   width: 100%;
 
   a, button {
     width: 100%;
   }
 
+  button {
+    border-radius: 0.25rem;
+  }
+
   a + a {
-    margin-left: 1rem;
+    margin-left: 2px;
   }
 
   button {

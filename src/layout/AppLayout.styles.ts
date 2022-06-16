@@ -8,17 +8,9 @@ export const AppLayoutContainer = styled.div`
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #fafafa;
-
-  .color__band {
-    background-color: pink;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5vh;
-    opacity: 0;
-  }
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--color-primary);
 
   .app__content {
     display: flex;
@@ -28,38 +20,25 @@ export const AppLayoutContainer = styled.div`
 
     width: 100%;
     min-width: 200px;
-    max-width: 360px;
-  }
-
-  .section__title__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-primary);
+    max-width: 450px;
+    height: 100vh;
+    border-radius: 2rem;
     
-    width: 100%;
-    max-width: 100%;
-    padding: 1em 1.5rem;
-    border-radius: 1rem;
-  }
+    max-height: 800px;
 
-  .section__title__text {
-    font-size: 2.25rem;
-    color: white;
-    width: 100%;
-    text-align: center;
-  }
+    position: relative;
 
-  .section__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
 
-    width: 100%;
-    max-width: 100%;
-
-    margin-top: 2rem;
+      box-shadow: 0 0 3rem 1rem rgba(0, 0, 0, 0.1);
+      pointer-events: none;
+    }
   }
 `

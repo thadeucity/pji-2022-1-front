@@ -45,6 +45,7 @@ const FillingPage: NextPage<FillingPageProps> = ({companyData}) => {
         label: 'Escolha a Cobertura',
         href: '/steps/frosting'
       }}
+      showPriceBar
     >
       {fillingsToRender.map(filling => (
         <IngredientButton 
@@ -56,7 +57,6 @@ const FillingPage: NextPage<FillingPageProps> = ({companyData}) => {
           <span>{formatPrice(filling.price)}</span>
         </IngredientButton>
       ))}
-      <PriceBar />
     </RequestLayout>
   )
 }
