@@ -29,6 +29,6 @@ export const buildStaticProps: GetStaticProps = async (ctx) => {
     props: {
       companyData,
     },
-    revalidate: 60 * 60,
+    revalidate: 60 * 2,
   }
 }
