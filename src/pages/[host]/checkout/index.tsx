@@ -21,7 +21,6 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({companyData}) => {
 
   return (
     <CheckoutLayout
-      message='Preencha os dados abaixo para finalizar sua compra'
       phone={company.phone}
       title='Checkout'
     >

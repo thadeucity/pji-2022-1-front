@@ -1,22 +1,25 @@
 import React from 'react'
 import { Button } from '../components/Button';
 import { PriceBar } from '../components/PriceBar';
+import { useOrder } from '../hooks/Order';
+import { buildWhatsappString } from '../utils/buildWhatsappString';
+import { formatPrice } from '../utils/formatPrice';
 import { AppLayout } from './AppLayout';
 import { RequestContainer } from './RequestLayout.styles';
 
 interface CheckoutLayoutProps{
   title: string
   phone: string
-  message: string
   children: React.ReactNode
 }
 
 export const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
   title,
   phone,
-  message,
   children
 }) => {
+  const { parsedOrder, orderPrice } = useOrder()
+  
   return (
     <AppLayout>
       <RequestContainer>
@@ -32,7 +35,15 @@ export const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
         
         <Button className='checkout__btn'>
           <a 
-            href={`https://wa.me/${phone}?text=${message}`}         
+            href={buildWhatsappString({
+              phoneNumber: phone,
+              base: parsedOrder.base.label,
+              size: parsedOrder.size.label,
+              filling: parsedOrder.filling.label,
+              frosting: parsedOrder.frosting.label,
+              extras: parsedOrder.extras.map(extra => extra.label),
+              value: formatPrice(orderPrice)
+            })}         
             target="_blank"
             rel="noopener noreferrer" 
           >
