@@ -41,4 +41,12 @@ export const AppLayoutContainer = styled.div`
       pointer-events: none;
     }
   }
+
+  @media (max-width: 460px) {
+    .app__content {
+      max-width: 100%;
+      max-height: 100vh;
+      border-radius: 0;
+    }
+  }
 `
