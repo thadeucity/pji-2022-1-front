@@ -21,6 +21,8 @@ export const buildStaticPaths = async () => {
 export const buildStaticProps: GetStaticProps = async (ctx) => {
   const [companyData, hasError] = await getCompanyByUrl(ctx.params?.host as string)
 
+  console.log({companyData})
+
   if (hasError) {
     return { notFound: true }
   }
