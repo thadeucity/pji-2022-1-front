@@ -8,6 +8,8 @@ interface CompanyData {
   phone: string
   primaryColor: string
   secondaryColor: string
+  profilePicture: string
+  about: string
 }
 
 interface CompanyContextData {

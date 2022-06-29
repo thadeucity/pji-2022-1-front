@@ -9,6 +9,8 @@ export interface CompanyDataProps {
   phone: string
   primaryColor: string
   secondaryColor: string
+  about: string
+  profilePicture: string
 }
 
 export const buildStaticPaths = async () => {
